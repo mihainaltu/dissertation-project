@@ -29,8 +29,22 @@ N_CLASSES  = 12
 POS_LABELS = [f'{LABEL_TO_POS[i]}m' for i in range(N_CLASSES)]
 
 # Consistent colour palette across all plots
-CMAP   = cm.get_cmap('tab20', N_CLASSES)
-COLORS = [CMAP(i) for i in range(N_CLASSES)]
+# Consistent high-contrast colour palette across all plots
+# Chosen to be more distinguishable than tab20 for 12 classes
+COLORS = [
+    '#1f77b4',  # 100 m  - blue
+    '#ff7f0e',  # 200 m  - orange
+    '#2ca02c',  # 300 m  - green
+    '#d62728',  # 500 m  - red
+    '#9467bd',  # 700 m  - purple
+    '#8c564b',  # 900 m  - brown
+    '#e377c2',  # 1000 m - pink
+    '#7f7f7f',  # 1300 m - grey
+    '#bcbd22',  # 1500 m - olive
+    '#17becf',  # 1600 m - cyan
+    '#000000',  # 1800 m - black
+    '#FFD700',  # 1900 m - yellow/gold
+]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -70,6 +84,28 @@ def scatter2d(ax, Z, labels, color_by, cmap_vals, label_names,
                    alpha=alpha, s=s, linewidths=0)
     ax.set_title(title, fontsize=11)
     ax.set_xlabel('Component 1'); ax.set_ylabel('Component 2')
+    ax.grid(True, alpha=0.2)
+    
+    
+def scatter3d(ax, Z, color_by, cmap_vals, label_names,
+              title, alpha=0.75, s=28):
+    """Generic 3-D scatter coloured by an integer array."""
+    for c in np.unique(color_by):
+        mask = color_by == c
+        ax.scatter(
+            Z[mask, 0], Z[mask, 1], Z[mask, 2],
+            color=cmap_vals[int(c)],
+            label=label_names[int(c)],
+            alpha=alpha,
+            s=s,
+            depthshade=True,
+            edgecolors='none'
+        )
+
+    ax.set_title(title, fontsize=11)
+    ax.set_xlabel('Component 1')
+    ax.set_ylabel('Component 2')
+    ax.set_zlabel('Component 3')
     ax.grid(True, alpha=0.2)
 
 
@@ -195,14 +231,15 @@ def run_lda(X_sc, y, out_dir):
 # ─────────────────────────────────────────────────────────────────────────────
 
 def run_tsne(X_sc, y, volts, out_dir, max_per_class=200):
-    print(f'  Running t-SNE (max {max_per_class} per class) ...')
+    print(f'  Running 3D t-SNE (max {max_per_class} per class) ...')
+
     # Subsample for speed — t-SNE is O(n^2) on CPU
     Xs, ys, vs = subsample(X_sc, y, volts, max_per_class)
     print(f'    Subsampled to {len(ys)} points')
 
-    # Use PCA init for reproducibility and speed
+    # 3D t-SNE
     tsne = TSNE(
-        n_components=2,
+        n_components=3,
         perplexity=40,
         learning_rate='auto',
         init='pca',
@@ -210,51 +247,75 @@ def run_tsne(X_sc, y, volts, out_dir, max_per_class=200):
         random_state=42,
         n_jobs=-1,
     )
+
     Z = tsne.fit_transform(Xs)
 
-    # ── by position ──────────────────────────────────────────────────────
-    fig, ax = plt.subplots(figsize=(11, 9))
-    scatter2d(ax, Z, ys, ys, COLORS, POS_LABELS,
-              't-SNE — Colored by Injection Position (v2 features)',
-              alpha=0.6, s=22)
-    add_legend(ax, POS_LABELS)
+    # ── 3D by position ───────────────────────────────────────────────────
+    fig = plt.figure(figsize=(12, 9))
+    ax = fig.add_subplot(111, projection='3d')
+
+    scatter3d(
+        ax, Z, ys, COLORS, POS_LABELS,
+        '3D t-SNE — Colored by Injection Position (v2 features)',
+        alpha=0.8,
+        s=30
+    )
+
+    ax.view_init(elev=22, azim=45)
+    ax.legend(
+        fontsize=8,
+        markerscale=1.3,
+        loc='upper left',
+        bbox_to_anchor=(1.02, 1.0),
+        framealpha=0.8
+    )
+
     plt.tight_layout()
-    fig.savefig(out_dir / 'tsne_by_position_v2.png', dpi=150)
+    fig.savefig(out_dir / 'tsne_3d_by_position_v2.png', dpi=200, bbox_inches='tight')
     plt.close(fig)
 
-    # ── by voltage ───────────────────────────────────────────────────────
+    # ── 3D by voltage ────────────────────────────────────────────────────
     v_cmap   = cm.get_cmap('plasma', 10)
     v_colors = [v_cmap(i) for i in range(10)]
     v_labels = [f'{v}V' for v in range(1, 11)]
-    fig, ax  = plt.subplots(figsize=(11, 9))
-    scatter2d(ax, Z, ys, vs - 1, v_colors, v_labels,
-              't-SNE — Colored by Voltage (v2 features)', alpha=0.5, s=22)
-    add_legend(ax, v_labels, ncol=2)
+
+    fig = plt.figure(figsize=(12, 9))
+    ax = fig.add_subplot(111, projection='3d')
+
+    scatter3d(
+        ax, Z, vs - 1, v_colors, v_labels,
+        '3D t-SNE — Colored by Voltage (v2 features)',
+        alpha=0.65,
+        s=26
+    )
+
+    ax.view_init(elev=22, azim=45)
+    ax.legend(
+        fontsize=8,
+        markerscale=1.3,
+        loc='upper left',
+        bbox_to_anchor=(1.02, 1.0),
+        framealpha=0.8
+    )
+
     plt.tight_layout()
-    fig.savefig(out_dir / 'tsne_by_voltage_v2.png', dpi=150)
+    fig.savefig(out_dir / 'tsne_3d_by_voltage_v2.png', dpi=200, bbox_inches='tight')
     plt.close(fig)
 
-    # ── focus: just the hard mid-range positions ─────────────────────────
-    hard_labels = [8, 9, 10]   # 1500m, 1600m, 1800m
-    mask_hard   = np.isin(ys, hard_labels + [7, 11])  # add 1300 + 1900 for context
-    if mask_hard.sum() > 10:
-        Z_h  = Z[mask_hard]
-        y_h  = ys[mask_hard]
-        pos_h = [POS_LABELS[c] for c in np.unique(y_h)]
-        col_h = [COLORS[c] for c in np.unique(y_h)]
-        fig, ax = plt.subplots(figsize=(9, 7))
-        for c in np.unique(y_h):
-            mi = y_h == c
-            ax.scatter(Z_h[mi, 0], Z_h[mi, 1],
-                       color=COLORS[c], label=POS_LABELS[c],
-                       alpha=0.7, s=28, linewidths=0)
-        ax.set_title('t-SNE — Hard Mid-Range Positions (v2 features)')
-        ax.set_xlabel('Component 1'); ax.set_ylabel('Component 2')
-        ax.legend(fontsize=9); ax.grid(True, alpha=0.2)
-        plt.tight_layout()
-        fig.savefig(out_dir / 'tsne_hard_positions_v2.png', dpi=150)
-        plt.close(fig)
-        print('    Saved hard-positions zoom plot')
+    # ── Optional: keep a 2D projection of the 3D t-SNE for thesis comparison ──
+    fig, ax = plt.subplots(figsize=(11, 9))
+    scatter2d(
+        ax, Z[:, :2], ys, ys, COLORS, POS_LABELS,
+        't-SNE — First Two Components of 3D Embedding',
+        alpha=0.7,
+        s=24
+    )
+    add_legend(ax, POS_LABELS)
+    plt.tight_layout()
+    fig.savefig(out_dir / 'tsne_3d_projection_by_position_v2.png', dpi=200)
+    plt.close(fig)
+
+    print('    Saved 3D t-SNE plots')
 
     return Z
 

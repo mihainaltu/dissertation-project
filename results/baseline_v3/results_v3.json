@@ -1,0 +1,15 @@
+{
+  "kNN_k5": 99.5141,
+  "kNN_k11": 99.4533,
+  "LDA": 99.2711,
+  "XGBoost": 99.9393,
+  "MLP": 99.7975,
+  "RandomForest": 99.919,
+  "SVM_RBF": 99.8178,
+  "RandomForest_vi": 99.9376,
+  "kNN_k5_vi": 91.2324,
+  "LDA_vi": 98.4243,
+  "XGBoost_vi": 99.8284,
+  "MLP_vi": 99.9064,
+  "SVM_RBF_vi": 93.0421
+}

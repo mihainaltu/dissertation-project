@@ -162,7 +162,7 @@ def analyze_features(X_train, y_train, out_dir, top_k=40):
         ax.bar(range(topN), scores, color='steelblue')
         ax.set_xticks(range(topN))
         ax.set_xticklabels(top_names, rotation=90, fontsize=7)
-        ax.set_title(f'Top {topN} features — {label}')
+        ax.set_title(f'Top {topN} features: {label}')
         ax.set_ylabel(label)
         ax.grid(axis='y', alpha=0.3)
 
