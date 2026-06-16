@@ -15,7 +15,7 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from dataset import build_file_list, load_mat_file, POSITIONS
+from exp1_dataset import build_file_list, load_mat_file, POSITIONS
 from features import extract_features, feature_names, CROP
 
 
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     RESULTS    = Path('results')
     RESULTS.mkdir(exist_ok=True)
 
-    from dataset import build_file_list, POSITIONS
+    from exp1_dataset import build_file_list, POSITIONS
     from sklearn.model_selection import train_test_split
 
     class_names = [f"{p}m" for p in POSITIONS]

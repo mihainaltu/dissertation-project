@@ -12,7 +12,7 @@ from pathlib import Path
 from tqdm import tqdm
 import json
 
-from dataset import get_dataloaders, POSITIONS
+from exp1_dataset import get_dataloaders, POSITIONS
 from model import PDLocalizationCNN, count_parameters
 
 

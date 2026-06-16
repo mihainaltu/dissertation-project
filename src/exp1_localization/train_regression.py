@@ -118,7 +118,7 @@ def load_nonpd_rauscher(nonpd_dir):
         return c['X']
     # try loading raw
     try:
-        from dataset_nonpd import load_split, extract_features_batch
+        from nonpd_dataset import load_split, extract_features_batch
         sigs = []
         for split in ['train', 'val', 'test']:
             try: sigs.append(load_split(nonpd_dir, split))
@@ -820,7 +820,7 @@ def main(args):
         rauscher_cnn = None
         if args.nonpd_dir and Path(args.nonpd_dir).exists():
             try:
-                from dataset_nonpd import load_split, resample_batch
+                from nonpd_dataset import load_split, resample_batch
                 segs = []
                 for sp in ['train', 'val', 'test']:
                     try: segs.append(load_split(args.nonpd_dir, sp))

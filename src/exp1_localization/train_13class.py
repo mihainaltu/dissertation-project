@@ -57,7 +57,7 @@ from torch.utils.data import Dataset, DataLoader
 
 # ── local imports ─────────────────────────────────────────────────────────────
 from features_v2 import feature_count, feature_names
-from dataset_nonpd import (
+from nonpd_dataset import (
     load_split, extract_features_batch, pad_batch, NONPD_LABEL
 )
 

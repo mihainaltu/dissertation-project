@@ -12,7 +12,7 @@ from pathlib import Path
 from tqdm import tqdm
 import json
 
-from dataset_multitask import get_dataloaders_multitask
+from multitask_dataset import get_dataloaders_multitask
 from model_multitask import MultiTaskCNN, count_parameters
 
 

@@ -8,7 +8,7 @@ from torch.utils.data import Dataset, DataLoader
 from sklearn.model_selection import train_test_split
 from pathlib import Path
 
-from dataset import POSITIONS, POS_TO_LABEL, load_mat_file
+from exp1_dataset import POSITIONS, POS_TO_LABEL, load_mat_file
 
 
 def build_file_list_multitask(root_dir):

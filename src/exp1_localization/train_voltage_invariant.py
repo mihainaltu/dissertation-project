@@ -12,7 +12,7 @@ from pathlib import Path
 from tqdm import tqdm
 import json
 
-from dataset import get_dataloaders_voltage_split, POSITIONS
+from exp1_dataset import get_dataloaders_voltage_split, POSITIONS
 from model import PDLocalizationCNN, count_parameters
 
 
@@ -152,7 +152,7 @@ def main():
 
     # Also run RF baseline with same split for comparison
     print("\nRunning RF baseline with voltage-invariant split...")
-    from dataset import build_file_list
+    from exp1_dataset import build_file_list
     from features import extract_features, CROP
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.metrics import accuracy_score
@@ -170,7 +170,7 @@ def main():
             position = int(pos_folder.name)
         except ValueError:
             continue
-        from dataset import POS_TO_LABEL
+        from exp1_dataset import POS_TO_LABEL
         if position not in POS_TO_LABEL:
             continue
         label = POS_TO_LABEL[position]
@@ -183,7 +183,7 @@ def main():
                 elif volt_folder.name in CFG['test_voltages']:
                     rf_test.append((str(mat_file), label))
 
-    from dataset import load_mat_file
+    from exp1_dataset import load_mat_file
     def build_X(samples):
         X, y = [], []
         for fp, lb in tqdm(samples, desc='Features', leave=False):
