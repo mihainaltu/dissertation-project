@@ -25,6 +25,7 @@ models/
 # Arrays / predictions / cached outputs
 *.npy
 *.npz
+*.csv
 
 # Logs
 runs/
