@@ -1,7 +1,8 @@
 # src/transfer_learning.py
 
-import sys, os
-sys.path.append(os.path.dirname(__file__))
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1] / "exp1_localization"))
 
 import torch
 import torch.nn as nn
@@ -12,7 +13,7 @@ from pathlib import Path
 from tqdm import tqdm
 import json
 
-from dataset_exp2 import get_dataloaders_exp2
+from exp2_dataset import get_dataloaders_exp2
 from model import PDLocalizationCNN, count_parameters
 
 
