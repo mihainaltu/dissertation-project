@@ -1,7 +1,0 @@
-{
-  "RF_all_features": 99.8785,
-  "SVM_all_features": 99.7975,
-  "RF_top40": 99.919,
-  "SVM_top40": 99.8178,
-  "RF_top40_voltage_invariant": 99.9532
-}
