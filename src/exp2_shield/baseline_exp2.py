@@ -16,7 +16,7 @@ from sklearn.model_selection import train_test_split, StratifiedKFold
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from dataset_exp2 import build_file_list_exp2
+from exp2_dataset import build_file_list_exp2
 from features_exp2 import load_exp2_crop, extract_features_exp2, feature_names_exp2
 
 

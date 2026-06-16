@@ -12,7 +12,7 @@ from pathlib import Path
 from tqdm import tqdm
 import json
 
-from dataset_exp2 import get_dataloaders_exp2
+from exp2_dataset import get_dataloaders_exp2
 from model_exp2 import CableShieldCNN, count_parameters
 
 
