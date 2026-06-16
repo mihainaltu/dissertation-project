@@ -1,5 +1,63 @@
+# =========================
+# Data
+# =========================
 data/
+*.mat
+*.h5
+*.hdf5
 
-# Virtual environment
+# =========================
+# Generated results / artifacts
+# =========================
+artifacts/
+results/
+results_exp2/
+results_factory/
+models/
+
+# Model/checkpoint files
+*.pt
+*.pth
+*.ckpt
+*.pkl
+*.joblib
+
+# Arrays / predictions / cached outputs
+*.npy
+*.npz
+
+# Logs
+runs/
+logs/
+*.log
+tensorboard/
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Virtual environments
+# =========================
 venv/
 .venv/
+env/
+
+# =========================
+# IDE / OS files
+# =========================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
