@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1] / "exp1_localization"))
+
 """
 plot_all_positions.py — Figure for thesis.
 12-panel grid showing one representative pulse per injection position,

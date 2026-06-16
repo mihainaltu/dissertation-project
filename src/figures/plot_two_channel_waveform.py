@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1] / "exp1_localization"))
+
 """
 plot_two_channel_waveform.py — Figure for thesis.
 Clean academic style: two stacked panels, minimal decoration.

@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1] / "exp1_localization"))
+
 """
 pca_analysis_v2.py — PCA / LDA / t-SNE on the v2 feature matrix (122 features)
 Loads the cached features_cache.npz from baseline_v2, no re-extraction needed.

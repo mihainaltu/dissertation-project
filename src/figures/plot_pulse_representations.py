@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1] / "exp1_localization"))
+
 """
 plot_pulse_representations.py — Figure 1.4 for thesis.
 

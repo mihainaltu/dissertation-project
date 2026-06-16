@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1] / "exp1_localization"))
+
 # src/pca_analysis.py
 
 import sys, os
@@ -16,7 +20,7 @@ from sklearn.manifold import TSNE
 from sklearn.preprocessing import StandardScaler
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 
-from dataset import build_file_list, load_mat_file, POSITIONS
+from exp1_dataset import build_file_list, load_mat_file, POSITIONS
 from features import extract_features, feature_names, CROP
 
 # ── Config ────────────────────────────────────────────────────────────────────
@@ -43,7 +47,7 @@ def build_matrix(root_dir, max_per_folder=MAX_PER_FOLDER):
     root    = Path(root_dir)
     X, y_pos, y_volt, y_pos_m = [], [], [], []
 
-    from dataset import POS_TO_LABEL
+    from exp1_dataset import POS_TO_LABEL
     pos_idx = 0
     for pos_folder in tqdm(sorted(root.iterdir()), desc='Positions'):
         if not pos_folder.is_dir():
