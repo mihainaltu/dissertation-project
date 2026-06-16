@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1] / "exp1_localization"))
+
 # src/evaluate.py
 
 import sys, os
@@ -12,7 +16,7 @@ from sklearn.metrics import (classification_report, confusion_matrix,
                               ConfusionMatrixDisplay)
 from pathlib import Path
 
-from dataset import POSITIONS
+from exp1_dataset import POSITIONS
 
 RESULTS = Path('results')
 class_names = [f"{p}m" for p in POSITIONS]
