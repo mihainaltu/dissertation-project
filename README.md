@@ -6,7 +6,6 @@ Machine learning and deep learning pipeline for the classification, localisation
 
 - `src/dissertation_project/` reusable Python code
 - `scripts/` command-line scripts for running experiments and generating figures
-- `notebooks/` exploratory analysis only
 - `config/` experiment parameters
 - `reports/figures/` final thesis figures
 - `artifacts/` generated models, predictions, logs, ignored by Git
