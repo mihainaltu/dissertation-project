@@ -1,0 +1,21 @@
+# Cross-platform core dependencies
+# Install with: pip install -r requirements-core.txt
+#
+# For GPU PyTorch, install torch separately first:
+#   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+# then run: pip install -r requirements-core.txt --ignore-installed torch torchvision torchaudio
+
+torch
+torchvision
+torchaudio
+numpy
+scipy
+scikit-learn
+pandas
+matplotlib
+seaborn
+tqdm
+joblib
+PyWavelets
+xgboost
+tensorboard
